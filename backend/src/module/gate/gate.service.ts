@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { StatusResponse } from 'src/interfaces/gate';
+import { InfoResponse } from 'src/interfaces/gate';
 
 @Injectable()
 export class GateService {
   constructor(private prisma: PrismaService) {}
-  async getStatus(id: number): Promise<StatusResponse> {
+  async getInfo(id: number): Promise<InfoResponse> {
     let status = await this.prisma.gate.findFirst({
         where: {id: id},
         take: 1
@@ -28,6 +28,13 @@ export class GateService {
     await this.prisma.gate.update({
       where: {id: id},
       data: {locked: false}
+    })
+  }
+  
+  async updateStatus(id: number, open: boolean) {
+    await this.prisma.gate.update({
+      where: {id: id},
+      data: {opened: open}
     })
   }
 }

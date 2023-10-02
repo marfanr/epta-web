@@ -8,7 +8,7 @@ export class StatusRequest {
     opened: boolean;
 };
 
-export class StatusResponse {
+export class InfoResponse {
     id: number;
     opened: boolean;
     locked: boolean;

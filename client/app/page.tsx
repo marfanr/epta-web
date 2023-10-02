@@ -1,7 +1,19 @@
+
+import { redirect } from "next/navigation";
+import HomePage from "./home";
+import { cookies } from "next/headers";
+
+export const metadata = {
+  title: 'Dashboard',
+}
+
 export default function Home() {
-  return (
-    <>
-      <div className="bg-zinc-900 w-screen h-screen overflow-auto flex flex-row justify-center items-center gap-3 text-gray-200"></div>
-    </>
-  );
+  const cookiesList = cookies()
+  const hasCookie = cookiesList.has('users')
+  if (!hasCookie) {
+    redirect("/login")
+  }
+  return <>
+    <HomePage></HomePage>
+  </>;
 }
